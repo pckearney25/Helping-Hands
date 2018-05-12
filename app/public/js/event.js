@@ -1,90 +1,111 @@
 $(document).ready(function() {
-  // Getting references to the name input and author container, as well as the table body
-  var nameInput = $("#author-name");
-  var authorList = $("tbody");
-  var authorContainer = $(".author-container");
-  // Adding event listeners to the form to create a new object, and the button to delete
-  // an Author
-  $(document).on("submit", "#author-form", handleAuthorFormSubmit);
-  $(document).on("click", ".delete-author", handleDeleteButtonPress);
+  /* global moment */
 
-  // Getting the initial list of Authors
-  getAuthors();
+  // eventContainer holds all of our events
+  var eventContainer = $(".event-container");
+  var eventCategorySelect = $("#category");
+  // Click events for the edit and delete buttons
+  $(document).on("click", "button.delete", handleEventDelete);
+  $(document).on("click", "button.edit", handleEventEdit);
+  // Variable to hold our events
+  var events;
 
-  // A function to handle what happens when the form is submitted to create a new Author
-  function handleAuthorFormSubmit(event) {
-    event.preventDefault();
-    // Don't do anything if the name fields hasn't been filled out
-    if (!nameInput.val().trim().trim()) {
-      return;
-    }
-    // Calling the upsertAuthor function and passing in the value of the name input
-    upsertAuthor({
-      name: nameInput
-        .val()
-        .trim()
-    });
-  }
 
-  // A function for creating an author. Calls getAuthors upon completion
-  function upsertAuthor(authorData) {
-    $.post("/api/authors", authorData)
-      .then(getAuthors);
-  }
 
-  // Function for creating a new list row for authors
-  function createAuthorRow(authorData) {
-    var newTr = $("<tr>");
-    newTr.data("author", authorData);
-    newTr.append("<td>" + authorData.name + "</td>");
-    newTr.append("<td> " + authorData.Posts.length + "</td>");
-    newTr.append("<td><a href='/blog?author_id=" + authorData.id + "'>Go to Posts</a></td>");
-    newTr.append("<td><a href='/cms?author_id=" + authorData.id + "'>Create a Post</a></td>");
-    newTr.append("<td><a style='cursor:pointer;color:red' class='delete-author'>Delete Author</a></td>");
-    return newTr;
-  }
-
-  // Function for retrieving authors and getting them ready to be rendered to the page
-  function getAuthors() {
-    $.get("/api/authors", function(data) {
-      var rowsToAdd = [];
-      for (var i = 0; i < data.length; i++) {
-        rowsToAdd.push(createAuthorRow(data[i]));
-      }
-      renderAuthorList(rowsToAdd);
-      nameInput.val("");
-    });
-  }
-
-  // A function for rendering the list of authors to the page
-  function renderAuthorList(rows) {
-    authorList.children().not(":last").remove();
-    authorContainer.children(".alert").remove();
-    if (rows.length) {
-      console.log(rows);
-      authorList.prepend(rows);
-    }
-    else {
-      renderEmpty();
-    }
-  }
-
-  // Function for handling what to render when there are no authors
-  function renderEmpty() {
-    var alertDiv = $("<div>");
-    alertDiv.addClass("alert alert-danger");
-    alertDiv.text("You must create an Author before you can create a Post.");
-    authorContainer.append(alertDiv);
-  }
-
-  // Function for handling what happens when the delete button is pressed
-  function handleDeleteButtonPress() {
-    var listItemData = $(this).parent("td").parent("tr").data("author");
-    var id = listItemData.id;
+  // This function does an API call to delete events
+  function deleteEvents(id) {
     $.ajax({
       method: "DELETE",
-      url: "/api/authors/" + id
+      url: "/api/events/" + id
     })
-      .then(getAuthors);
+      .then(function() {
+        getEvents(eventCategorySelect.val());
+      });
   }
+
+  // InitializeRows handles appending all of our constructed events HTML inside eventContainer
+  function initializeRows() {
+    eventContainer.empty();
+    var eventsToAdd = [];
+    for (var i = 0; i < events.length; i++) {
+      eventsToAdd.push(createNewRow(events[i]));
+    }
+    eventContainer.append(eventsToAdd);
+  }
+
+  // This function constructs an event HTML
+  function createNewRow(post) {
+    var formattedDate = new Date(event.createAt);
+    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+    var newEventCard = $("<div>");
+    newEventCard.addClass("card");
+    var newEventCardHeading = $("<div>");
+    newEventCardHeading.addClass("card-header");
+    var deleteBtn = $("<button>");
+    deleteBtn.text("x");
+    deleteBtn.addClass("delete btn btn-danger");
+    var editBtn = $("<button>");
+    editBtn.text("EDIT");
+    editBtn.addClass("edit btn btn-info");
+    var newEventTitle = $("<h2>");
+    var newEventDate = $("<small>");
+    var newEventOrganization = $("<h5>");
+    newEventOrganization.text("Written by: " + event.organization.name);
+    newEventOrganization.css({
+      float: "right",
+      color: "blue",
+      "margin-top":
+      "-10px"
+    });
+    var newEventCardBody = $("<div>");
+    newEventCardBody.addClass("card-body");
+    var newEventBody = $("<p>");
+    newEventTitle.text(event.title + " ");
+    newEventBody.text(event.body);
+    newEventDate.text(formattedDate);
+    newEventTitle.append(newEventDate);
+    newEventCardHeading.append(deleteBtn);
+    newEventCardHeading.append(editBtn);
+    newEventCardHeading.append(newEventTitle);
+    newEventCardHeading.append(newEventOrganization);
+    newEventCardBody.append(newEventBody);
+    newEventCard.append(newEventCardHeading);
+    newEventCard.append(newEventCardBody);
+    newEventCard.data("event", event);
+    return newEventCard;
+  }
+
+  // This function figures out which event we want to delete and then calls deleteEvents
+  function handleEventDelete() {
+    var currentEvent = $(this)
+      .parent()
+      .parent()
+      .data("event");
+    deleteEvents(currentEvent.id);
+  }
+
+  // This function figures out which event we want to edit and takes it to the appropriate url
+  function handleEventEdit() {
+    var currentEvent = $(this)
+      .parent()
+      .parent()
+      .data("event");
+    window.location.href = "/cms?event_id=" + currentEvent.id;
+  }
+
+  // This function displays a message when there are no events
+  function displayEmpty(id) {
+    var query = window.location.search;
+    var partial = "";
+    if (id) {
+      partial = " for organization #" + id;
+    }
+    eventContainer.empty();
+    var messageH2 = $("<h2>");
+    messageH2.css({ "text-align": "center", "margin-top": "50px" });
+    messageH2.html("No events yet" + partial + ", navigate <a href='/cms" + query +
+    "'>here</a> ");
+    eventContainer.append(messageH2);
+  }
+
 });

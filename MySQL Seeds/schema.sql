@@ -10,7 +10,11 @@ CREATE TABLE volunteers (
   last_name VARCHAR(45) NULL,
   phone_num VARCHAR(22) NULL,
   email VARCHAR(50),
+<<<<<<< HEAD
   password VARCHAR(50),
+=======
+  password VARCHAR(50)
+>>>>>>> master
   PRIMARY KEY (id)
 );
 CREATE TABLE organization (
@@ -18,7 +22,11 @@ CREATE TABLE organization (
   organizer VARCHAR(255) NULL,
   email VARCHAR(50),
   phone_num VARCHAR(22) NULL,
+<<<<<<< HEAD
   password VARCHAR(50),
+=======
+  password VARCHAR(50)
+>>>>>>> master
   PRIMARY KEY (id)
 );
 CREATE TABLE events (
@@ -32,8 +40,15 @@ CREATE TABLE events (
 );
 
 CREATE TABLE volunteer_events (
+<<<<<<< HEAD
   id INT NOT NULL AUTO_INCREMENT,  
   vol_id INT NULL,
   event_id INT NULL,
   PRIMARY KEY (id)
 );
+=======
+  id INT NOT NULL AUTO_INCREMENT,
+  vol_id INT NULL,
+  event_id INT NULL
+);
+>>>>>>> master
