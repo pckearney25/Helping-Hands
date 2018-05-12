@@ -22,7 +22,7 @@ var Event = sequelize.define("event", {
   //}
 //}, {
   //timestamps: false
-//});
+});
 
 // Syncs with DB
 Event.sync();

@@ -25,7 +25,10 @@ var Organizer = sequelize.define("organizer", {
 //});
 
 // Syncs with DB
-Organizer.sync();
+// Organizer.sync();
 
 // Makes the Book Model available for other files (will also create a table)
-module.exports = Organizer;
+// module.exports = Organizer;
+
+
+});
