@@ -6,26 +6,29 @@ var Sequelize = require("sequelize");
 // sequelize (lowercase) references my connection to the DB.
 var sequelize = require("../config/connection.js");
 
-// Creates a "Book" model that matches up with DB
+// Creates a "volunteer" model that matches up with DB
 var Volunteer = sequelize.define("volunteer", {
-  //title: {
-    //type: Sequelize.STRING
- // },
-  //author: {
-    //type: Sequelize.STRING
-  //},
-  //genre: {
-    //type: Sequelize.STRING
-  //},
-  //pages: {
-    //type: Sequelize.INTEGER
-  //}
-//}, {
-  //timestamps: false
-//});
+    volunteer_name : {
+    type: Sequelize.STRING
+  },
+  volunteer_desc: {
+    type: Sequelize.STRING
+  },
+  volunteer_loc: {
+    type: Sequelize.STRING
+  },
+  volunteer_date: {
+    type: Sequelize.INTEGER
+  },
+  volunteer_time: {
+    type: Sequelize.INTEGER
+  },
+}, {
+  timestamps: false
+});
 
 // Syncs with DB
 Volunteer.sync();
 
-// Makes the Book Model available for other files (will also create a table)
+// Makes the volunteer Model available for other files (will also create a table)
 module.exports = Volunteer;
