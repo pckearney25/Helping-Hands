@@ -1,141 +1,80 @@
 $(document).ready(function() {
-  /* global moment */
-
-  // blogContainer holds all of our posts
-  var blogContainer = $(".blog-container");
-  var postCategorySelect = $("#category");
-  // Click events for the edit and delete buttons
-  $(document).on("click", "button.delete", handlePostDelete);
-  $(document).on("click", "button.edit", handlePostEdit);
-  // Variable to hold our posts
-  var posts;
-
-  // The code below handles the case where we want to get blog posts for a specific author
-  // Looks for a query param in the url for author_id
-  var url = window.location.search;
-  var authorId;
-  if (url.indexOf("?author_id=") !== -1) {
-    authorId = url.split("=")[1];
-    getPosts(authorId);
-  }
-  // If there's no authorId we just get all posts as usual
-  else {
-    getPosts();
-  }
+  // Getting references to the name input and volunteer container, as well as the table body
+  var nameInput = $("#volunteer-name");
+  var volunteerList = $("tbody");
+  var volunteerContainer = $(".volunteer-container");
+  // Adding event listeners to the form to create a new volunteer
+ 
+  $(document).on("submit", "#volunteer-form", handlevolunteerFormSubmit);
 
 
-  // This function grabs posts from the database and updates the view
-  function getPosts(author) {
-    authorId = author || "";
-    if (authorId) {
-      authorId = "/?author_id=" + authorId;
+  // Getting the initial list of volunteers
+  getvolunteers();
+
+  // A function to handle what happens when the form is submitted to create a new volunteer
+  function handlevolunteerFormSubmit(event) {
+    event.preventDefault();
+    // Don't do anything if the name fields hasn't been filled out
+    if (!nameInput.val().trim().trim()) {
+      return;
     }
-    $.get("/api/posts" + authorId, function(data) {
-      console.log("Posts", data);
-      posts = data;
-      if (!posts || !posts.length) {
-        displayEmpty(author);
-      }
-      else {
-        initializeRows();
-      }
+    // Calling the upsertvolunteer function and passing in the value of the name input
+    upsertvolunteer({
+      name: nameInput
+        .val()
+        .trim()
     });
   }
 
-  // This function does an API call to delete posts
-  function deletePost(id) {
-    $.ajax({
-      method: "DELETE",
-      url: "/api/posts/" + id
-    })
-      .then(function() {
-        getPosts(postCategorySelect.val());
-      });
+  // A function for creating an volunteer. Calls getvolunteers upon completion
+  function upsertvolunteer(volunteerData) {
+    $.post("/api/volunteers", volunteerData)
+      .then(getvolunteers);
   }
 
-  // InitializeRows handles appending all of our constructed post HTML inside blogContainer
-  function initializeRows() {
-    blogContainer.empty();
-    var postsToAdd = [];
-    for (var i = 0; i < posts.length; i++) {
-      postsToAdd.push(createNewRow(posts[i]));
-    }
-    blogContainer.append(postsToAdd);
+  // Function for creating a new list row for volunteers
+  function createvolunteerRow(volunteerData) {
+    var newTr = $("<tr>");
+    newTr.data("volunteer", volunteerData);
+    newTr.append("<td>" + volunteerData.name + "</td>");
+    newTr.append("<td> " + volunteerData.Posts.length + "</td>");
+    newTr.append("<td><a href='/event?volunteer_id=" + volunteerData.id + "'>Go to Events</a></td>");
+    return newTr;
   }
 
-  // This function constructs a post's HTML
-  function createNewRow(post) {
-    var formattedDate = new Date(post.createdAt);
-    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-    var newPostCard = $("<div>");
-    newPostCard.addClass("card");
-    var newPostCardHeading = $("<div>");
-    newPostCardHeading.addClass("card-header");
-    var deleteBtn = $("<button>");
-    deleteBtn.text("x");
-    deleteBtn.addClass("delete btn btn-danger");
-    var editBtn = $("<button>");
-    editBtn.text("EDIT");
-    editBtn.addClass("edit btn btn-info");
-    var newPostTitle = $("<h2>");
-    var newPostDate = $("<small>");
-    var newPostAuthor = $("<h5>");
-    newPostAuthor.text("Written by: " + post.Author.name);
-    newPostAuthor.css({
-      float: "right",
-      color: "blue",
-      "margin-top":
-      "-10px"
+  // Function for retrieving volunteers and getting them ready to be rendered to the page
+  function getvolunteers() {
+    $.get("/api/volunteers", function(data) {
+      var rowsToAdd = [];
+      for (var i = 0; i < data.length; i++) {
+        rowsToAdd.push(createvolunteerRow(data[i]));
+      }
+      rendervolunteerList(rowsToAdd);
+      nameInput.val("");
     });
-    var newPostCardBody = $("<div>");
-    newPostCardBody.addClass("card-body");
-    var newPostBody = $("<p>");
-    newPostTitle.text(post.title + " ");
-    newPostBody.text(post.body);
-    newPostDate.text(formattedDate);
-    newPostTitle.append(newPostDate);
-    newPostCardHeading.append(deleteBtn);
-    newPostCardHeading.append(editBtn);
-    newPostCardHeading.append(newPostTitle);
-    newPostCardHeading.append(newPostAuthor);
-    newPostCardBody.append(newPostBody);
-    newPostCard.append(newPostCardHeading);
-    newPostCard.append(newPostCardBody);
-    newPostCard.data("post", post);
-    return newPostCard;
   }
 
-  // This function figures out which post we want to delete and then calls deletePost
-  function handlePostDelete() {
-    var currentPost = $(this)
-      .parent()
-      .parent()
-      .data("post");
-    deletePost(currentPost.id);
-  }
-
-  // This function figures out which post we want to edit and takes it to the appropriate url
-  function handlePostEdit() {
-    var currentPost = $(this)
-      .parent()
-      .parent()
-      .data("post");
-    window.location.href = "/cms?post_id=" + currentPost.id;
-  }
-
-  // This function displays a message when there are no posts
-  function displayEmpty(id) {
-    var query = window.location.search;
-    var partial = "";
-    if (id) {
-      partial = " for Author #" + id;
+  // A function for rendering the list of volunteers to the page
+  function rendervolunteerList(rows) {
+    volunteerList.children().not(":last").remove();
+    volunteerContainer.children(".alert").remove();
+    if (rows.length) {
+      console.log(rows);
+      volunteerList.prepend(rows);
     }
-    blogContainer.empty();
-    var messageH2 = $("<h2>");
-    messageH2.css({ "text-align": "center", "margin-top": "50px" });
-    messageH2.html("No posts yet" + partial + ", navigate <a href='/cms" + query +
-    "'>here</a> in order to get started.");
-    blogContainer.append(messageH2);
+    else {
+      renderEmpty();
+    }
   }
 
+  // Function for handling what to render when there are no volunteers
+  function renderEmpty() {
+    var alertDiv = $("<div>");
+    alertDiv.addClass("alert alert-danger");
+    alertDiv.text("You must create an account before you can see events.");
+    volunteerContainer.append(alertDiv);
+  }
+
+  
+ 
 });
