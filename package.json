@@ -1,8 +1,17 @@
 {
-  "name": "helping-hands",
+  "name": "Helping-Hands",
   "version": "1.0.0",
-  "description": "Community Organization site to help people find place to volunteer and for organizations to post new opportunities for community service",
+  "description": "Team Project 2",
   "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mysql2": "^1.5.3",
+    "path": "^0.12.7",
+    "sequelize-cli": "^4.0.0",
+    "sequelize": "^4.37.7"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -11,20 +20,11 @@
     "type": "git",
     "url": "git+https://github.com/pckearney25/Helping-Hands.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pckearney25/Helping-Hands/issues"
   },
-  "homepage": "https://github.com/pckearney25/Helping-Hands#readme",
-  "dependencies": {
-    "body-parser": "^1.18.2",
-    "express": "^4.16.3",
-    "express-handlebars": "^3.0.0",
-    "fs": "0.0.1-security",
-    "node": "^10.0.0",
-    "path": "^0.12.7",
-    "sequelize": "^4.37.7",
-    "server.js": "^1.0.0"
-  }
+  "homepage": "https://github.com/pckearney25/Helping-Hands#readme"
 }

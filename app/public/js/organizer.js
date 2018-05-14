@@ -1,134 +1,141 @@
 $(document).ready(function() {
-  // Getting jQuery references to the post body, title, form, and author select
-  var bodyInput = $("#body");
-  var titleInput = $("#title");
-  var cmsForm = $("#cms");
-  var authorSelect = $("#author");
-  // Adding an event listener for when the form is submitted
-  $(cmsForm).on("submit", handleFormSubmit);
-  // Gets the part of the url that comes after the "?" (which we have if we're updating a post)
+  /* global moment */
+
+  // eventContainer holds all of our events
+  var eventContainer = $(".event-container");
+  var eventCategorySelect = $("#category");
+  // Click events for the edit and delete buttons
+  $(document).on("click", "button.delete", handleEventDelete);
+  $(document).on("click", "button.edit", handleEventEdit);
+  // Variable to hold our events
+  var events;
+
+  // The code below handles the case where we want to get Events for a specific Organization
+  // Looks for a query param in the url for event_id
   var url = window.location.search;
-  var postId;
-  var authorId;
-  // Sets a flag for whether or not we're updating a post to be false initially
-  var updating = false;
-
-  // If we have this section in our url, we pull out the post id from the url
-  // In '?post_id=1', postId is 1
-  if (url.indexOf("?post_id=") !== -1) {
-    postId = url.split("=")[1];
-    getPostData(postId, "post");
+  var eventId;
+  if (url.indexOf("?event_id=") !== -1) {
+    eventId = url.split("=")[1];
+    getEvents(eventId);
   }
-  // Otherwise if we have an author_id in our url, preset the author select box to be our Author
-  else if (url.indexOf("?author_id=") !== -1) {
-    authorId = url.split("=")[1];
+  // If there's no eventId we just get all events as usual
+  else {
+    getEvents();
   }
 
-  // Getting the authors, and their posts
-  getAuthors();
 
-  // A function for handling what happens when the form to create a new post is submitted
-  function handleFormSubmit(event) {
-    event.preventDefault();
-    // Wont submit the post if we are missing a body, title, or author
-    if (!titleInput.val().trim() || !bodyInput.val().trim() || !authorSelect.val()) {
-      return;
+  // This function grabs eventsfrom the database and updates the view
+  function getEvents(organization) {
+    eventId = organization || "";
+    if (eventId) {
+      eventId = "/?event_id=" + eventId;
     }
-    // Constructing a newPost object to hand to the database
-    var newPost = {
-      title: titleInput
-        .val()
-        .trim(),
-      body: bodyInput
-        .val()
-        .trim(),
-      AuthorId: authorSelect.val()
-    };
-
-    // If we're updating a post run updatePost to update a post
-    // Otherwise run submitPost to create a whole new post
-    if (updating) {
-      newPost.id = postId;
-      updatePost(newPost);
-    }
-    else {
-      submitPost(newPost);
-    }
-  }
-
-  // Submits a new post and brings user to blog page upon completion
-  function submitPost(post) {
-    $.post("/api/posts", post, function() {
-      window.location.href = "/blog";
-    });
-  }
-
-  // Gets post data for the current post if we're editing, or if we're adding to an author's existing posts
-  function getPostData(id, type) {
-    var queryUrl;
-    switch (type) {
-    case "post":
-      queryUrl = "/api/posts/" + id;
-      break;
-    case "author":
-      queryUrl = "/api/authors/" + id;
-      break;
-    default:
-      return;
-    }
-    $.get(queryUrl, function(data) {
-      if (data) {
-        console.log(data.AuthorId || data.id);
-        // If this post exists, prefill our cms forms with its data
-        titleInput.val(data.title);
-        bodyInput.val(data.body);
-        authorId = data.AuthorId || data.id;
-        // If we have a post with this id, set a flag for us to know to update the post
-        // when we hit submit
-        updating = true;
+    $.get("/api/events" + eventId, function(data) {
+      console.log("events", data);
+      events = data;
+      if (!events || !events.length) {
+        displayEmpty(organization);
+      }
+      else {
+        initializeRows();
       }
     });
   }
 
-  // A function to get Authors and then render our list of Authors
-  function getAuthors() {
-    $.get("/api/authors", renderAuthorList);
-  }
-  // Function to either render a list of authors, or if there are none, direct the user to the page
-  // to create an author first
-  function renderAuthorList(data) {
-    if (!data.length) {
-      window.location.href = "/authors";
-    }
-    $(".hidden").removeClass("hidden");
-    var rowsToAdd = [];
-    for (var i = 0; i < data.length; i++) {
-      rowsToAdd.push(createAuthorRow(data[i]));
-    }
-    authorSelect.empty();
-    console.log(rowsToAdd);
-    console.log(authorSelect);
-    authorSelect.append(rowsToAdd);
-    authorSelect.val(authorId);
-  }
-
-  // Creates the author options in the dropdown
-  function createAuthorRow(author) {
-    var listOption = $("<option>");
-    listOption.attr("value", author.id);
-    listOption.text(author.name);
-    return listOption;
-  }
-
-  // Update a given post, bring user to the blog page when done
-  function updatePost(post) {
+  // This function does an API call to delete events
+  function deleteEvents(id) {
     $.ajax({
-      method: "PUT",
-      url: "/api/posts",
-      data: post
+      method: "DELETE",
+      url: "/api/events/" + id
     })
       .then(function() {
-        window.location.href = "/blog";
+        getEvents(eventCategorySelect.val());
       });
   }
+
+  // InitializeRows handles appending all of our constructed events HTML inside eventContainer
+  function initializeRows() {
+    eventContainer.empty();
+    var eventsToAdd = [];
+    for (var i = 0; i < events.length; i++) {
+      eventsToAdd.push(createNewRow(events[i]));
+    }
+    eventContainer.append(eventsToAdd);
+  }
+
+  // This function constructs an event HTML
+  function createNewRow(post) {
+    var formattedDate = new Date(event.createAt);
+    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+    var newEventCard = $("<div>");
+    newEventCard.addClass("card");
+    var newEventCardHeading = $("<div>");
+    newEventCardHeading.addClass("card-header");
+    var deleteBtn = $("<button>");
+    deleteBtn.text("x");
+    deleteBtn.addClass("delete btn btn-danger");
+    var editBtn = $("<button>");
+    editBtn.text("EDIT");
+    editBtn.addClass("edit btn btn-info");
+    var newEventTitle = $("<h2>");
+    var newEventDate = $("<small>");
+    var newEventOrganization = $("<h5>");
+    newEventOrganization.text("Written by: " + event.organization.name);
+    newEventOrganization.css({
+      float: "right",
+      color: "blue",
+      "margin-top":
+      "-10px"
+    });
+    var newEventCardBody = $("<div>");
+    newEventCardBody.addClass("card-body");
+    var newEventBody = $("<p>");
+    newEventTitle.text(event.title + " ");
+    newEventBody.text(event.body);
+    newEventDate.text(formattedDate);
+    newEventTitle.append(newEventDate);
+    newEventCardHeading.append(deleteBtn);
+    newEventCardHeading.append(editBtn);
+    newEventCardHeading.append(newEventTitle);
+    newEventCardHeading.append(newEventOrganization);
+    newEventCardBody.append(newEventBody);
+    newEventCard.append(newEventCardHeading);
+    newEventCard.append(newEventCardBody);
+    newEventCard.data("event", event);
+    return newEventCard;
+  }
+
+  // This function figures out which event we want to delete and then calls deleteEvents
+  function handleEventDelete() {
+    var currentEvent = $(this)
+      .parent()
+      .parent()
+      .data("event");
+    deleteEvents(currentEvent.id);
+  }
+
+  // This function figures out which event we want to edit and takes it to the appropriate url
+  function handleEventEdit() {
+    var currentEvent = $(this)
+      .parent()
+      .parent()
+      .data("event");
+    window.location.href = "/cms?event_id=" + currentEvent.id;
+  }
+
+  // This function displays a message when there are no events
+  function displayEmpty(id) {
+    var query = window.location.search;
+    var partial = "";
+    if (id) {
+      partial = " for organization #" + id;
+    }
+    eventContainer.empty();
+    var messageH2 = $("<h2>");
+    messageH2.css({ "text-align": "center", "margin-top": "50px" });
+    messageH2.html("No events yet" + partial + ", navigate <a href='/cms" + query +
+    "'>here</a> in order to get started.");
+    eventContainer.append(messageH2);
+  }
+
 });

@@ -1,31 +1,20 @@
-// Dependencies
-// =============================================================
-
-// Sequelize (capital) references the standard library
-var Sequelize = require("sequelize");
-// sequelize (lowercase) references my connection to the DB.
-var sequelize = require("../config/connection.js");
-
-// Creates a "Book" model that matches up with DB
-var Event = sequelize.define("event", {
-  //title: {
-    //type: Sequelize.STRING
- // },
-  //author: {
-    //type: Sequelize.STRING
-  //},
-  //genre: {
-    //type: Sequelize.STRING
-  //},
-  //pages: {
-    //type: Sequelize.INTEGER
-  //}
-//}, {
-  //timestamps: false
-});
-
-// Syncs with DB
-Event.sync();
-
-// Makes the Book Model available for other files (will also create a table)
-module.exports = Event;
+module.exports = function(sequelize, DataTypes) {
+  var Events = sequelize.define("events", {
+    event_name: {
+      type: DataTypes.STRING
+    },
+    event_desc: {
+      type: DataTypes.STRING
+    },
+    event_loc: {
+      type: DataTypes.STRING
+    },
+    event_date: {
+      type: DataTypes.DATEONLY
+    },
+    event_time: {
+      type: DataTypes.TIME
+    }
+  });
+  return Events;
+};

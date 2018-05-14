@@ -1,5 +1,3 @@
-
-
 INSERT INTO volunteers (first_name, last_name, phone_num, email)
 VALUES 
 ("Tom", "Franklin", "913-555-2345", "tfranklin@hey.com"),
