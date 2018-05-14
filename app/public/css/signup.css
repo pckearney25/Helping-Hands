@@ -20,26 +20,26 @@ html {
   width: 960px;
 }
 
-.jumbotron {
+#login-container {
   background-color: #81ecec;
 }
 
-#welcome-header,
-h2,
-h4 {
+#login-h1,
+h2 {
   font-family: "Dancing Script", cursive;
   color: #2d3436;
 }
 
-#welcome-header {
+#login-h1 {
   font-size: 56px;
+  padding-top: 10px;
 }
 
-/* primary button */
 .btn-warning {
   background-color: #ffeaa7;
   border-color: #ffeaa7;
   color: #2d3436;
+  margin-bottom: 20px;
 }
 
 .btn-warning:hover,
