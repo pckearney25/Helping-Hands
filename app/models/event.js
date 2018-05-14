@@ -6,26 +6,32 @@ var Sequelize = require("sequelize");
 // sequelize (lowercase) references my connection to the DB.
 var sequelize = require("../config/connection.js");
 
-// Creates a "Book" model that matches up with DB
+// Creates a "event" model that matches up with DB
 var Event = sequelize.define("event", {
-  //title: {
-    //type: Sequelize.STRING
- // },
-  //author: {
-    //type: Sequelize.STRING
-  //},
-  //genre: {
-    //type: Sequelize.STRING
-  //},
-  //pages: {
-    //type: Sequelize.INTEGER
-  //}
-//}, {
-  //timestamps: false
-//});
+  event_name: {
+    type: Sequelize.STRING
+  },
+  event_desc: {
+    type: Sequelize.STRING
+  },
+  event_loc: {
+    type: Sequelize.STRING
+  },
+  event_date: {
+    type: Sequelize.INTEGER
+  },
+  event_time: {
+    type: Sequelize.INTEGER
+  },
+  password: {
+    type: Sequelize.STRING
+  }
+}, {
+  timestamps: false
+});
 
 // Syncs with DB
 Event.sync();
 
-// Makes the Book Model available for other files (will also create a table)
+// Makes the event Model available for other files (will also create a table)
 module.exports = Event;
