@@ -1,5 +1,5 @@
-// Dependencies
-// =============================================================
+//Dependencies
+//=============================================================
 
 // Sequelize (capital) references the standard library
 var Sequelize = require("sequelize");
@@ -8,21 +8,21 @@ var sequelize = require("../config/connection.js");
 
 // Creates a "Book" model that matches up with DB
 var Organizer = sequelize.define("organizer", {
-  //title: {
-    //type: Sequelize.STRING
- // },
-  //author: {
-    //type: Sequelize.STRING
-  //},
-  //genre: {
-    //type: Sequelize.STRING
-  //},
-  //pages: {
-    //type: Sequelize.INTEGER
-  //}
-//}, {
-  //timestamps: false
-//});
+//   title: {
+//     type: Sequelize.STRING
+//  },
+//   author: {
+//     type: Sequelize.STRING
+//   },
+//   genre: {
+//     type: Sequelize.STRING
+//   },
+//   pages: {
+//     type: Sequelize.INTEGER
+//   }
+// }, {
+//   timestamps: false
+// });
 
 // Syncs with DB
 // Organizer.sync();

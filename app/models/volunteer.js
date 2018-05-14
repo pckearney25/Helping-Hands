@@ -30,47 +30,47 @@
 // // Makes the Book Model available for other files (will also create a table)
 // module.exports = Volunteer;
 
-module.exports = function(sequelize, DataTypes){
-  var Volunteer = sequelize.define("Volunteer", {
-    event_name: {
-      type: DataTypes.DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
-    },
-    event_desc: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
-    },
-    event_loc: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
-    },
-    event_date: {
-      type: DateTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
-    },
-    event_time: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
-    }
+// module.exports = function(sequelize, DataTypes){
+//   var Volunteer = sequelize.define("Volunteer", {
+//     event_name: {
+//       type: DataTypes.DataTypes.STRING,
+//       allowNull: false,
+//       validate: {
+//         len: [1]
+//       }
+//     },
+//     event_desc: {
+//       type: DataTypes.TEXT,
+//       allowNull: false,
+//       validate: {
+//         len: [1]
+//       }
+//     },
+//     event_loc: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//       validate: {
+//         len: [1]
+//       }
+//     },
+//     event_date: {
+//       type: DateTypes.STRING,
+//       allowNull: false,
+//       validate: {
+//         len: [1]
+//       }
+//     },
+//     event_time: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//       validate: {
+//         len: [1]
+//       }
+//     }
 
-  });
-  return Volunteer;
-};
+//   });
+//   return Volunteer;
+// };
 module.exports = function(sequelize, DataTypes) {
   var Volunteer = sequelize.define("volunteers", {
     first_name: {
