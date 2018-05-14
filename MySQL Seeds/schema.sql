@@ -6,33 +6,39 @@ USE helping_handsDB;
 
 CREATE TABLE volunteers (
   id INT NOT NULL AUTO_INCREMENT,
-  first_name VARCHAR(45) NULL,
-  last_name VARCHAR(45) NULL,
-  phone_num VARCHAR(22) NULL,
-  email VARCHAR(50),
-  password VARCHAR(50)
+  first_name VARCHAR (45) NOT NULL,
+  last_name VARCHAR (45) NOT NULL,
+  phone_num VARCHAR (22) NOT NULL,
+  email VARCHAR (50) NOT NULL,
   PRIMARY KEY (id)
 );
-CREATE TABLE organization (
+CREATE TABLE organizations (
   id INT NOT NULL AUTO_INCREMENT,
-  organizer VARCHAR(255) NULL,
-  email VARCHAR(50),
-  phone_num VARCHAR(22) NULL,
-  password VARCHAR(50)
+  organizer VARCHAR (255) NOT NULL,
+  email VARCHAR (50) NOT NULL,
+  phone_num VARCHAR (22) NOT NULL,
   PRIMARY KEY (id)
 );
 CREATE TABLE events (
   id INT NOT NULL AUTO_INCREMENT,
-  event_name VARCHAR(255) NULL,
-  event_desc VARCHAR(1000) NULL,
-  event_loc VARCHAR(1000) NULL,
+  event_name VARCHAR (255) NOT NULL,
+  event_desc VARCHAR (1000) NOT NULL,
+  event_loc VARCHAR (1000) NOT NULL,
   event_date DATE NOT NULL,
   event_time TIME NOT NULL,
   PRIMARY KEY (id)
 );
-
 CREATE TABLE volunteer_events (
   id INT NOT NULL AUTO_INCREMENT,
-  vol_id INT NULL,
-  event_id INT NULL
+  vol_id INT NOT NULL,
+  event_id INT NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE users (
+  id INT NOT NULL AUTO_INCREMENT,
+  username VARCHAR (50) NOT NULL,
+  password VARCHAR (50) NOT NULL, 
+  hh_role VARCHAR (50) NOT NULL,
+  PRIMARY KEY (id)
 );

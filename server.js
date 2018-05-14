@@ -1,11 +1,8 @@
-// *********************************************************************************
-// Server.js - This file is the initial starting point for the Node/Express server.
-// *********************************************************************************
-
 // Dependencies
 // =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
+var db = require("./app/models");
 
 // Sets up the Express App
 // =============================================================
@@ -22,20 +19,16 @@ app.use(bodyParser.json());
 // Static directory
 app.use(express.static("app/public"));
 
-// Sets Handlebars.
-var exphbs = require("express-handlebars");
-
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
-
 // Routes
 // =============================================================
-require("./app/routes/api-routes.js")(app);
+require("./app/routes/login-api-routes.js")(app);
 require("./app/routes/html-routes.js")(app);
-//require("./app/routes/handlebars-html-routes.js")(app);
+// require("./app/routes/organization-apiroutes.js")(app);
 
-// Starts the server to begin listening
+// Syncing our sequelize models and then starting our Express app
 // =============================================================
-app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+db.sequelize.sync().then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
 });
