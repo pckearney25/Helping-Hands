@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Organization = sequelize.define("organizations", {
+  var Organization = sequelize.define("Organization", {
     organizer: {
       type: DataTypes.STRING
     },

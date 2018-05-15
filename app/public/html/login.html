@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col">
                     <h2>Volunteer Login:</h2>
-                    <form action="/login/volunteer" method="post">
+                    <form action="/login/volunteer" method="get">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
                             <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -43,7 +43,7 @@
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                         </div>
-                        <button type="submit" value="Log In" class="btn btn-warning">
+                        <button type="submit" id="login" value="Log In" class="btn btn-warning">
                             <i class="fas fa-tasks"></i>
                             </span>Submit</button>
                         </button>
@@ -53,13 +53,13 @@
                     <h2>Organization Login:</h2>
                     <form>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                            <label for="exampleInputEmail2">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email">
                             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <label for="exampleInputPassword2">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
                         </div>
                         <button type="submit" class="btn btn-warning">
                             <i class="fas fa-tasks"></i>
@@ -70,6 +70,26 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript"> 
+
+        window.onload=(function(){
+            console.log('working');
+            $("#login").on("click", function (event){
+           //on thevent.preventDefault();
+        var user = {
+            username:  $("#exampleInputEmail1").val().trim(),
+            password:  $("#exampleInputPassword1").val().trim()
+        }
+        var url = window.location.origin
+        $.get(url + "/login/volunteer", user, console.log(user));
+           
+       });
+        
+        });
+       
+    </script>
+
 </body>
+
 
 </html>
