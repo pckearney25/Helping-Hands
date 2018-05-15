@@ -1,6 +1,32 @@
 $(document).ready(function() {
   var events;
 
+  $.get("/api/posts", function(data) {
+
+    if (data.length !== 0) {
+  
+      for (var i = 0; i < data.length; i++) {
+  
+        var row = $("<div>");
+        row.addClass("mb-1");
+  
+        row.append("<p>" + data[i].event_name + "</p>");
+        row.append("<p>" + data[i].event_desc + "</p>");
+        console.log("volunteer.js: ", data);
+     
+  
+        $("#event_name").prepend(row);
+  
+      }
+  
+    }
+  
+  });
+
+  $.get('/api/posts/', function(data) {
+
+  });
+
   var events_container = $("#");
   function getEvents() {
     $.get('/api/posts/', function(data) {
