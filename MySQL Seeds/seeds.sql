@@ -67,6 +67,11 @@ Values
    ("west@church.org", "Min1sry*$", "organization",'2018-05-15 00:00:00', '2018-05-15 00:00:00'),
    ("nhs@dist.edu", "NHS@#$dist", "organization",'2018-05-15 00:00:00', '2018-05-15 00:00:00'),
    ("bchelpers@help.org", "blu3Cr0$$001", "organization",'2018-05-15 00:00:00', '2018-05-15 00:00:00');
+   
+INSERT INTO volunteer_events (vol_id, event_id, createdAt, updatedAt)
+VALUES (1, 2, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+	   (2, 3, '2018-05-15 00:00:00', '2018-05-15 00:00:00');
+
 INSERT INTO events
    (event_name, event_desc, event_loc, event_date, event_time, createdAt, updatedAt)
 VALUES

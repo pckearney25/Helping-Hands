@@ -1,51 +1,58 @@
 $(document).ready(function() {
-var events;
-  function allEvents (allEvents) {
-    var event_id = event || "";
-    if (event_id) {
-      event_id = "/event_id/" + event_id;
-    }
-    $.get("/api/posts" + event_id, function(data){
-      console.log("Events: ", data);
-      events = data;
-      if(!events || !events.length){
-        displayEmpty();
+  var events;
+
+  var events_container = $("#");
+  function getEvents() {
+    $.get('/api/posts/', function(data) {
+      console.log("eventsList: ", data);
+      eventsToAdd = [];
+      for(var i = 0; i < data.length; i++){
+        eventsToAdd.push(addNewEvent(data[i]));
       }
-      else{
-        initializeRows();
-      }
-    });
+      renderEventList(eventsToAdd);
+      
+    })
+  };
+getEvents();
+  function renderEventList (){
+    var addNewEvent = $("<")
   }
 
-  allEvents();
-  
-  // function postAllEvents(event) {
-  //   var newListGroup = $("<list-group>");
+  //   // Function for creating a new list row for volunteers
+//   function createvolunteerRow(volunteerData) {
+//     var newTr = $("<tr>");
+//     newTr.data("volunteer", volunteerData);
+//     newTr.append("<td>" + volunteerData.name + "</td>");
+//     newTr.append("<td> " + volunteerData.Posts.length + "</td>");
+//     newTr.append("<td><a href='/event?volunteer_id=" + volunteerData.id + "'>Go to Events</a></td>");
+//     return newTr;
+//   }
 
-  //   newListGroup.data("event_name", event);
-  //   newListGroup.append("<list-group>" + event.organization_name);
-  //   newListGroup.append("<list-group>" + event.event_desc);
-  //   newListGroup.append("<list-group>" + event.event_date);
-  //   newListGroup.append("<list-group>" + event.event_time);
-  //   return newListGroup;
-  // };
 
-  // function showAllEvents() {
-  //   $.get("/api/volunteers_test", function(data) {
-  //      var rowsToAdd = [];
-  //      for (var i = 0; i < data.length; i++) {
-  //        rowsToAdd.push(postAllEvents(data[i]));
-  //      } 
-  //      renderEventsList(rowsToAdd);
-  //   });
-  // };
+//   // Function for retrieving volunteers and getting them ready to be rendered to the page
+//   function getvolunteers() {
+//     $.get("/api/volunteers", function(data) {
+//       var rowsToAdd = [];
+//       for (var i = 0; i < data.length; i++) {
+//         rowsToAdd.push(createvolunteerRow(data[i]));
+//       }
+//       rendervolunteerList(rowsToAdd);
+//       nameInput.val("");
+//     });
+//   }
 
-  // function renderEventsList(rows) {
-  //   events.children().not(":last").remove();
-
-  // }
-
-  
+//   // A function for rendering the list of volunteers to the page
+//   function rendervolunteerList(rows) {
+//     volunteerList.children().not(":last").remove();
+//     volunteerContainer.children(".alert").remove();
+//     if (rows.length) {
+//       console.log(rows);
+//       volunteerList.prepend(rows);
+//     }
+//     else {
+//       renderEmpty();
+//     }
+//   }
 
 
 

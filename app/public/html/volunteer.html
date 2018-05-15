@@ -24,60 +24,55 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                        <div class="list-group-item list-group-item-action flex-column align-items-start active">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">New Opportunities in your area.</h5>
-                                <small>(post count)</small>
+                                <h5 class="mb-1">Here is where you can see all of the events near you.</h5>
+                                <small id="db_total_events">(events in database?</small>
                             </div>
-                            <p class="mb-1">This is where you can view a list of currently recruting Volunteer Opportunities near you.</p>
-                            <small>Click on a post to sign up.</small>
+                            <p class="mb-1">Read about events, see when and where they are located.</p>
+                            <small>Click an event to sign up!</small>
+                        </div>
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" id="event_sign_up_btn">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1" id="event_name">Event Name TEST</h5>
+                                <small class="text-muted" id="volunteer_count">(4)</small>
+                            </div>
+                            <p class="mb-1" id="event_org">Event Organizer TEST</p>
+                            <p class="mb-1" id="event_desc">Event Description</p>
+                            <p class="mb-1" id="event_date">Event date</p>
+                            <p class="mb-1" id="event_desc">Event time</p>
+                            <p class="mb-1" id="event_loc">Event Location</p>
+
                         </a>
 
-                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="event_name" id="event_name_test">Book Drive</h5>
-                                <small class="text-muted">6 days ago</small>
-                            </div>
-                            <p class="organization_name">North High School</p>
-                            <p class="event_desc">Book drive to support the local youth club.</p>
-                            <p class="event_date">09/21/2018</p>
-                            <p class="event_time">08:00 am CST.</p>
-                            <p class="event_loc">12345 N North St. North Kansas City, MO</p>
-
-                        </a>
                     </div>
                 </div>
-
-
                 <div class="col-lg-6">
                     <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                        <div class="list-group-item list-group-item-action flex-column align-items-start active">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Events you are signed up for</h5>
-                                <small>(show total events signed up for here)</small>
+                                <h5 class="mb-1">This is where you can see all of the event that you are signed up for</h5>
+                                <small id="user_total_events">(events signed up for total)</small>
                             </div>
-                            <p class="mb-1">Here is a list of the events that you have signed up for.</p>
-                            <small>Click the event to change attendance to "not going".</small>
+                            <p class="mb-1">Read about events, see when and where they are located.</p>
+                            <small>Click an event to un signup</small>
+                        </div>
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" id="event_un_sign_up_btn">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1" id="event_name">Event Name TEST</h5>
+                                <small class="text-muted" id="volunteer_count">(4)</small>
+                            </div>
+                            <p class="mb-1" id="event_org">Event Organizer TEST</p>
+                            <p class="mb-1" id="event_desc">Event Description</p>
+                            <p class="mb-1" id="event_date">Event date</p>
+                            <p class="mb-1" id="event_desc">Event time</p>
+                            <p class="mb-1" id="event_loc">Event Location</p>
 
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="att_event_name">Car Wash</h5>
-                                    <small class="text-muted">3 days ago</small>
-                                </div>
-                                <p class="att_organization_name">North High School</p>
-                                <p class="att_event_desc">This is a car wash held by the AV club to raise money for a solar panel array for the school.</p>
-                                <p class="att_event_time">05/31/2018</p>
-                                <p class="att_event_date">12:00 pm CST.</p>
-                                <p class="att_event_loc">12345 N North St. North Kansas City, MO</p>
-
-                            </a>
-
+                        </a>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
 
