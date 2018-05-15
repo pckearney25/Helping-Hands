@@ -51,4 +51,12 @@ module.exports = function(app) {
   //}
   //});
   //});
+  app.get("/login/volunteer", function(req, res) {
+    console.log(req);
+    User.findOne({
+      where: {
+        username: req.body.username
+      }
+    });
+  });
 };

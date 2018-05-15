@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var VolunteerEvents = sequelize.define("VolunteerEvents", {
+  var Volunteer_Events = sequelize.define("Volunteer_Events", {
     vol_id: {
       type: DataTypes.INTEGER
     },
@@ -7,5 +7,5 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER
     }
   });
-  return VolunteerEvents;
+  return Volunteer_Events;
 };
