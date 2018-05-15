@@ -8,7 +8,19 @@ var db = require("../models");
 
 // Routes
 // =============================================================
-module.exports = function (app) {
+module.exports = function(app) {
+  console.log("api-routes listening");
+
+  app.post("/api/login", function(req, res) {
+    console.log(req.body);
+    db.User.findAll({
+      where: req.body
+    }).then(function(dbUser) {
+      console.log(dbUser);
+      res.json(dbUser);
+    });
+  });
+
   //THESE WILL HAVE TO BE WRITTEN FOR THE FUNCTIONS REQUIRED OF YOUR SPECIFIC PAGES.
   //NOTE: SOME OF THESE WILL HAVE TO BE CALLED AS SOON AS YOUR PAGE LOADS.
   //As such, you might want to bracket your page.js files in a document ready function.
@@ -39,13 +51,12 @@ module.exports = function (app) {
   //}
   //});
   //});
-  app.get("/login/volunteer", function(req, res){
+  app.get("/login/volunteer", function(req, res) {
     console.log(req);
     User.findOne({
-      
       where: {
         username: req.body.username
       }
-    })
-  })
+    });
+  });
 };
