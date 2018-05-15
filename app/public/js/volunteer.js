@@ -1,30 +1,49 @@
 $(document).ready(function() {
-  
-  function postAllEvents(event) {
-    var newListGroup = $("<list-group>");
-
-    newListGroup.data("event_name", event);
-    newListGroup.append("<list-group>" + event.organization_name);
-    newListGroup.append("<list-group>" + event.event_desc);
-    newListGroup.append("<list-group>" + event.event_date);
-    newListGroup.append("<list-group>" + event.event_time);
-    return newListGroup;
-  };
-
-  function showAllEvents() {
-    $.get("/api/volunteers_test", function(data) {
-       var rowsToAdd = [];
-       for (var i = 0; i < data.length; i++) {
-         rowsToAdd.push(postAllEvents(data[i]));
-       } 
-       renderEventsList(rowsToAdd);
+var events;
+  function allEvents (allEvents) {
+    var event_id = event || "";
+    if (event_id) {
+      event_id = "/event_id/" + event_id;
+    }
+    $.get("/api/posts" + event_id, function(data){
+      console.log("Events: ", data);
+      events = data;
+      if(!events || !events.length){
+        displayEmpty();
+      }
+      else{
+        initializeRows();
+      }
     });
-  };
-
-  function renderEventsList(rows) {
-    events.children().not(":last").remove();
-
   }
+
+  allEvents();
+  
+  // function postAllEvents(event) {
+  //   var newListGroup = $("<list-group>");
+
+  //   newListGroup.data("event_name", event);
+  //   newListGroup.append("<list-group>" + event.organization_name);
+  //   newListGroup.append("<list-group>" + event.event_desc);
+  //   newListGroup.append("<list-group>" + event.event_date);
+  //   newListGroup.append("<list-group>" + event.event_time);
+  //   return newListGroup;
+  // };
+
+  // function showAllEvents() {
+  //   $.get("/api/volunteers_test", function(data) {
+  //      var rowsToAdd = [];
+  //      for (var i = 0; i < data.length; i++) {
+  //        rowsToAdd.push(postAllEvents(data[i]));
+  //      } 
+  //      renderEventsList(rowsToAdd);
+  //   });
+  // };
+
+  // function renderEventsList(rows) {
+  //   events.children().not(":last").remove();
+
+  // }
 
   
 

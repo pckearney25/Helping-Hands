@@ -31,16 +31,29 @@ module.exports = function(app) {
   //   });
   // });
 
+  app.get("/api/posts/", function(req, res) {
+    console.log("POST GET: ", res)
+    db.Events.findAll({
+      // where: {
+      //   event_name: req.params.event_name
+      // }
+    })
+      .then(function(dbEvents) {
+        res.json(dbEvents);
+        console.log("Got the data: ", dbEvents);
+      });
+  });
   app.get("/api/volunteer", function(request, response) {
-    sequelize.sync().then(function (){
+    
       db.Events.findAll({
+        where: id = 1,
         include: [db.Volunteer_Events],
         include: [db.Volunteer]
     }).then(function(dbEvents_Volunteers) {
       res.json(dbEvents_Volunteers);
       console.log("events-Volunteers #####################: ", dbEvents_Volunteers);
     });
-  });
+  
 
   });
 
