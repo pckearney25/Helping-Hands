@@ -8,7 +8,7 @@ var db = require("../models");
 
 // Routes
 // =============================================================
-module.exports = function(app) {
+module.exports = function (app) {
   //THESE WILL HAVE TO BE WRITTEN FOR THE FUNCTIONS REQUIRED OF YOUR SPECIFIC PAGES.
   //NOTE: SOME OF THESE WILL HAVE TO BE CALLED AS SOON AS YOUR PAGE LOADS.
   //As such, you might want to bracket your page.js files in a document ready function.
