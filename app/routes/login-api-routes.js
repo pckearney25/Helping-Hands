@@ -51,7 +51,11 @@ module.exports = function(app) {
   //}
   //});
   //});
+<<<<<<< Updated upstream
   app.get("/login/volunteer", function(req, res) {
+=======
+  app.post("/login/volunteer", function(req, res){
+>>>>>>> Stashed changes
     console.log(req);
     User.findOne({
       where: {
