@@ -31,13 +31,13 @@ $("#volSignup").on("click", function (event) {
                         // log the data we found
                         console.log(data);
                         // tell the user thanks!
-                        alert("Thank you for signing up!");
+                        window.location.href = data.redirect
                     });
 
                 // empty each input box by replacing the value with an empty string
                 $("#firstName").val(""); 
                 $("#lastName").val("");
-                $("#volorgEmail").val("");
+                $("#volEmail").val("");
                 $("#password").val("");
                 $("#phoneNum").val("");
                 
@@ -49,7 +49,7 @@ $("#volSignup").on("click", function (event) {
             $("#orgSignup").on("click", function (event) {
                 event.preventDefault();
     
-               alert('hey!')
+              
              // make a newOrg obj
              var newOrg = {
                 // name from name input
