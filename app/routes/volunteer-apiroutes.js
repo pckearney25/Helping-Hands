@@ -36,7 +36,7 @@ module.exports = function(app) {
       });
   });
   //the where is hardcoded need to change that to be dynamic for the user that is currently loged in 
-  app.get("/api/posts/", function(req, res) {
+  app.get("/api/posts/:all", function(req, res) {
     // console.log("vol_events get: ", res);
     db.Volunteer_Events.findAll ({
       where: {

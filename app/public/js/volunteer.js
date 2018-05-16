@@ -1,22 +1,79 @@
 $(document).ready(function() {
-  var events;
-
-  var events_container = $("#");
-  function getEvents() {
-    $.get('/api/posts/', function(data) {
-      console.log("eventsList: ", data);
-      eventsToAdd = [];
-      for(var i = 0; i < data.length; i++){
-        eventsToAdd.push(addNewEvent(data[i]));
-      }
-      renderEventList(eventsToAdd);
+  $("#events_div").addClass("list-group-item", "list-group-item-action", "flex-column", "aligh-items-start" );
+    $.ajax({
+      url: "/api/posts/",
+      method: "GET"
       
     })
-  };
-getEvents();
-  function renderEventList (){
-    var addNewEvent = $("<")
-  }
+      .then(function(response){
+        var results = response;
+        // console.log("Got the data: ", results);
+        for(var i = 0; i < results.length; i++) {
+          var event_name = $("<p>").text(results[i].event_name);
+            event_name.addClass("mb-1");
+          var event_desc = $("<p>").text(results[i].event_desc);
+          var event_date = $("<p>").text(results[i].event_date);
+          var event_time = $("<p>").text(results[i].event_time);
+          
+
+
+          $("#events_div").append(event_name);
+          $("#events_div").append(event_desc);
+          $("#events_div").append(event_date);
+          $("#events_div").append(event_time);
+        
+      }
+    });
+
+
+
+
+
+
+//   var events;
+
+//   $.get("/api/posts", function(data) {
+// console.log("##############################", data);
+//     if (data.length !== 0) {
+  
+//       for (var i = 0; i < data.length; i++) {
+  
+//         var row = $("<div>");
+//         row.addClass("mb-1");
+  
+//         row.append("<p>" + data[i].event_name + "</p>");
+//         row.append("<p>" + data[i].event_desc + "</p>");
+//         console.log("volunteer.js: ", data);
+     
+  
+//         $("#event_name").prepend(row);
+  
+//       }
+  
+//     }
+  
+//   });
+
+//   $.get('/api/posts/', function(data) {
+
+//   });
+
+//   var events_container = $("#");
+//   function getEvents() {
+//     $.get('/api/posts/', function(data) {
+//       console.log("eventsList: ", data);
+//       eventsToAdd = [];
+//       for(var i = 0; i < data.length; i++){
+//         eventsToAdd.push(addNewEvent(data[i]));
+//       }
+//       renderEventList(eventsToAdd);
+      
+//     })
+//   };
+// getEvents();
+//   function renderEventList (){
+//     var addNewEvent = $("<")
+//   }
 
   //   // Function for creating a new list row for volunteers
 //   function createvolunteerRow(volunteerData) {
