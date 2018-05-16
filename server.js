@@ -24,11 +24,12 @@ app.use(express.static("app/public"));
 require("./app/routes/login-api-routes.js")(app);
 require("./app/routes/html-routes.js")(app);
 require("./app/routes/volunteer-apiroutes.js")(app);
+require("./app/routes/sign-in-api-routes.js")(app);
 // require("./app/routes/organization-apiroutes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize.sync().then(function() {
+db.sequelize.sync({force: true}).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
