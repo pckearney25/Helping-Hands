@@ -14,7 +14,15 @@ module.exports = function(sequelize, DataTypes) {
     },
     event_time: {
       type: DataTypes.TIME
+      
     }
+  }, {
+    classMethods: {
+      associate: function(models) {
+        Events.hasMany(models.Volunteers);
+      }
+    }
+  
   });
   return Events;
 };

@@ -5,7 +5,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     event_id: {
       type: DataTypes.INTEGER
-    },
+    }
+  }, {
+    classMethods: {
+      associate: function(models) {
+        Volunteer_Events.hasOne(models.Events);
+      }
+    }
   });
   return Volunteer_Events;
 };
