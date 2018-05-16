@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     event_id: {
       type: DataTypes.INTEGER
-    }
+    },
   });
   return Volunteer_Events;
 };

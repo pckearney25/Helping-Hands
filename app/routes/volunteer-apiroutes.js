@@ -36,18 +36,55 @@ module.exports = function(app) {
       });
   });
   //the where is hardcoded need to change that to be dynamic for the user that is currently loged in 
-  app.get("/api/posts/:all", function(req, res) {
+  app.get("/api/posts/:user", function(req, res) {
     // console.log("vol_events get: ", res);
     db.Volunteer_Events.findAll ({
       where: {
-        vol_id: 1
-      }
+        vol_id: 2
+      },
+      include: [db.Events]
     }).then(function(dbVolunteer_Events){
       res.json(dbVolunteer_Events);
       // console.log("got the Volunteer_Events: ", dbVolunteer_Events);
     });
   });
 
+  app.delete("/api/posts/:user/:id", function(req, res) {
+    db.Volunteer_Events.destroy({
+      where: {
+        id: req.params.vol_id
+      }
+    }).then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
+  // app.get("/api/posts/:user", function(req, res) {
+  //   // not sure about what to put in the vol_id //
+  //   db.Events.findAll ({
+  //     where: {
+  //       id: 2
+  //     },
+  //     attributes: ["event_name", "event_desc", "event_loc", "event_date", "event_time"]
+  //   }).then(function(db_vol_events) {
+  //     db.Volunteer_Events.findAll ({
+        
+  //     }).then(function(evnt_user){
+  //       res.json(evnt_user);
+  //     })
+  //   })
+    
+  // });
+
+  // app.get("/api/posts/", function(req, res) {
+  //   // console.log("POST GET: ", res)
+  //   db.Events.findAll({
+     
+  //   })
+  //     .then(function(dbEvents) {
+  //       res.json(dbEvents);
+  //       // console.log("Got the data: ", dbEvents);
+  //     });
+  // });
 
 
 

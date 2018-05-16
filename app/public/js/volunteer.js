@@ -1,203 +1,63 @@
-$(document).ready(function() {
-  $("#events_div").addClass("list-group-item", "list-group-item-action", "flex-column", "aligh-items-start" );
-    $.ajax({
+$(document).ready(function () {
+  $("#events_div").addClass("list-group-item", "list-group-item-action", "flex-column", "aligh-items-start");
+  $("#user_att_div").addClass("list-group-item", "list-group-item-action", "flex-column", "aligh-items-start");
+  $.ajax({
       url: "/api/posts/",
       method: "GET"
-      
+
     })
-      .then(function(response){
-        var results = response;
-        // console.log("Got the data: ", results);
-        for(var i = 0; i < results.length; i++) {
-          var event_name = $("<p>").text(results[i].event_name);
-            event_name.addClass("mb-1");
-          var event_desc = $("<p>").text(results[i].event_desc);
-          var event_date = $("<p>").text(results[i].event_date);
-          var event_time = $("<p>").text(results[i].event_time);
-          
+    .then(function (response) {
+      var results = response;
+      // console.log("Got the data: ", results);
+      for (var i = 0; i < results.length; i++) {
+        var event_name = $("<p>").text(results[i].event_name);
+        event_name.addClass("mb-1");
+        var event_desc = $("<p>").text(results[i].event_desc);
+        event_desc.addClass("mb-1");
+        var event_date = $("<p>").text(results[i].event_date);
+        event_date.addClass("mb-1");
+        var event_time = $("<p>").text(results[i].event_time);
+        event_time.addClass("mb-1");
+        var submit_btn = $("<button>").text("Mark as going");
+        submit_btn.addClass("btn btn-submit");
 
+        $("#events_div").append(event_name);
+        $("#events_div").append(event_desc);
+        $("#events_div").append(event_date);
+        $("#events_div").append(event_time);
+        $("#events_div").append(submit_btn);
 
-          $("#events_div").append(event_name);
-          $("#events_div").append(event_desc);
-          $("#events_div").append(event_date);
-          $("#events_div").append(event_time);
-        
       }
     });
 
+  $.ajax({
+      url: "/api/posts/:user",
+      method: "GET"
 
+    })
+    .then(function (response) {
+      var results = response;
 
+      for (var i = 0; i < results.length; i++) {
+        var event_name = $("<p>").text(results[i].event_name);
+        event_name.addClass("mb-1");
+        var event_desc = $("<p>").text(results[i].event_desc);
+        event_desc.addClass("mb-1");
+        var event_date = $("<p>").text(results[i].event_date);
+        event_date.addClass("mb-1");
+        var event_time = $("<p>").text(results[i].event_time);
+        event_time.addClass("mb-1");
+        var un_submit_btn = $("<button>").text("Mark as not going");
+        un_submit_btn.addClass("btn btn-submit");
 
-
-
-//   var events;
-
-//   $.get("/api/posts", function(data) {
-// console.log("##############################", data);
-//     if (data.length !== 0) {
-  
-//       for (var i = 0; i < data.length; i++) {
-  
-//         var row = $("<div>");
-//         row.addClass("mb-1");
-  
-//         row.append("<p>" + data[i].event_name + "</p>");
-//         row.append("<p>" + data[i].event_desc + "</p>");
-//         console.log("volunteer.js: ", data);
-     
-  
-//         $("#event_name").prepend(row);
-  
-//       }
-  
-//     }
-  
-//   });
-
-//   $.get('/api/posts/', function(data) {
-
-//   });
-
-//   var events_container = $("#");
-//   function getEvents() {
-//     $.get('/api/posts/', function(data) {
-//       console.log("eventsList: ", data);
-//       eventsToAdd = [];
-//       for(var i = 0; i < data.length; i++){
-//         eventsToAdd.push(addNewEvent(data[i]));
-//       }
-//       renderEventList(eventsToAdd);
-      
-//     })
-//   };
-// getEvents();
-//   function renderEventList (){
-//     var addNewEvent = $("<")
-//   }
-
-  //   // Function for creating a new list row for volunteers
-//   function createvolunteerRow(volunteerData) {
-//     var newTr = $("<tr>");
-//     newTr.data("volunteer", volunteerData);
-//     newTr.append("<td>" + volunteerData.name + "</td>");
-//     newTr.append("<td> " + volunteerData.Posts.length + "</td>");
-//     newTr.append("<td><a href='/event?volunteer_id=" + volunteerData.id + "'>Go to Events</a></td>");
-//     return newTr;
-//   }
-
-
-//   // Function for retrieving volunteers and getting them ready to be rendered to the page
-//   function getvolunteers() {
-//     $.get("/api/volunteers", function(data) {
-//       var rowsToAdd = [];
-//       for (var i = 0; i < data.length; i++) {
-//         rowsToAdd.push(createvolunteerRow(data[i]));
-//       }
-//       rendervolunteerList(rowsToAdd);
-//       nameInput.val("");
-//     });
-//   }
-
-//   // A function for rendering the list of volunteers to the page
-//   function rendervolunteerList(rows) {
-//     volunteerList.children().not(":last").remove();
-//     volunteerContainer.children(".alert").remove();
-//     if (rows.length) {
-//       console.log(rows);
-//       volunteerList.prepend(rows);
-//     }
-//     else {
-//       renderEmpty();
-//     }
-//   }
+        $("#user_att_div").append(event_name);
+        $("#user_att_div").append(event_desc);
+        $("#user_att_div").append(event_date);
+        $("#user_att_div").append(event_time);
+        $("#user_att_div").append(un_submit_btn);
+      }
+    })
 
 
 
 });
-
-
-
-
-
-// $(document).ready(function() {
-//   // Getting references to the name input and volunteer container, as well as the table body
-//   var nameInput = $("#volunteer-name");
-//   var volunteerList = $("tbody");
-//   var volunteerContainer = $(".volunteer-container");
-//   // Adding event listeners to the form to create a new volunteer
- 
-//   $(document).on("submit", "#volunteer-form", handlevolunteerFormSubmit);
-
-
-//   // Getting the initial list of volunteers
-//   getvolunteers();
-
-//   // A function to handle what happens when the form is submitted to create a new volunteer
-//   function handlevolunteerFormSubmit(event) {
-//     event.preventDefault();
-//     // Don't do anything if the name fields hasn't been filled out
-//     if (!nameInput.val().trim().trim()) {
-//       return;
-//     }
-//     // Calling the upsertvolunteer function and passing in the value of the name input
-//     upsertvolunteer({
-//       name: nameInput
-//         .val()
-//         .trim()
-//     });
-//   }
-
-//   // A function for creating an volunteer. Calls getvolunteers upon completion
-//   function upsertvolunteer(volunteerData) {
-//     $.post("/api/volunteers", volunteerData)
-//       .then(getvolunteers);
-//   }
-
-//   // Function for creating a new list row for volunteers
-//   function createvolunteerRow(volunteerData) {
-//     var newTr = $("<tr>");
-//     newTr.data("volunteer", volunteerData);
-//     newTr.append("<td>" + volunteerData.name + "</td>");
-//     newTr.append("<td> " + volunteerData.Posts.length + "</td>");
-//     newTr.append("<td><a href='/event?volunteer_id=" + volunteerData.id + "'>Go to Events</a></td>");
-//     return newTr;
-//   }
-
-//   // Function for retrieving volunteers and getting them ready to be rendered to the page
-//   function getvolunteers() {
-//     $.get("/api/volunteers", function(data) {
-//       var rowsToAdd = [];
-//       for (var i = 0; i < data.length; i++) {
-//         rowsToAdd.push(createvolunteerRow(data[i]));
-//       }
-//       rendervolunteerList(rowsToAdd);
-//       nameInput.val("");
-//     });
-//   }
-
-//   // A function for rendering the list of volunteers to the page
-//   function rendervolunteerList(rows) {
-//     volunteerList.children().not(":last").remove();
-//     volunteerContainer.children(".alert").remove();
-//     if (rows.length) {
-//       console.log(rows);
-//       volunteerList.prepend(rows);
-//     }
-//     else {
-//       renderEmpty();
-//     }
-//   }
-
-//   // Function for handling what to render when there are no volunteers
-//   function renderEmpty() {
-//     var alertDiv = $("<div>");
-//     alertDiv.addClass("alert alert-danger");
-//     alertDiv.text("You must create an account before you can see events.");
-//     volunteerContainer.append(alertDiv);
-//   }
-
-  
- 
-// });
-
-
