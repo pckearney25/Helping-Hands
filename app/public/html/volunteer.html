@@ -16,7 +16,7 @@
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1 class="display-4">Volunteer (placeholder title)</h1>
-                <p class="lead">Obligitory text (placeholder)</p>
+                <p class="lead" id="user_name_welcome">Obligitory text (placeholder)</p>
             </div>
         </div>
 
@@ -32,9 +32,12 @@
                             <p class="mb-1">Read about events, see when and where they are located.</p>
                             <small>Click an event to sign up!</small>
                         </div>
-                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" id="event_sign_up_btn">
+                        
+                        <div id="events_div"></div>
+                        
+                        <!-- <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" id="event_sign_up_btn">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1" id="event_name">Event Name TEST</h5>
+                                <h5 class="mb-1" id="event_name"></h5>
                                 <small class="text-muted" id="volunteer_count">(4)</small>
                             </div>
                             <p class="mb-1" id="event_org">Event Organizer TEST</p>
@@ -43,7 +46,7 @@
                             <p class="mb-1" id="event_desc">Event time</p>
                             <p class="mb-1" id="event_loc">Event Location</p>
 
-                        </a>
+                        </a> -->
 
                     </div>
                 </div>
@@ -76,12 +79,16 @@
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
+
+        <script src="/js/volunteer.js"></script>
 </body>
 
 </html>
