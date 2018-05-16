@@ -26,4 +26,10 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/html/signup.html"));
   });
 
+  app.get("/volunteer", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/html/volunteer.html"));
+  });
 };
+
+//add controllers and views
+
