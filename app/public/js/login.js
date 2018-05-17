@@ -1,7 +1,7 @@
 $(document).ready(function() {
   // The app stores a user's infromation returned from the login process.
   // Clear it at the start of each login attempt.
-  sessionStorage.clear();
+  localStorage.clear();
 
   $(".role-btn").on("click", function(event) {
     event.preventDefault();
@@ -11,8 +11,6 @@ $(document).ready(function() {
       password: "",
       hh_role: ""
     };
-
-    var userData = {};
 
     newLogin.hh_role = $(this).val();
 
@@ -53,9 +51,10 @@ $(document).ready(function() {
         // For now we'll just store the entire thing.
         // Absurdly we have to turn it back into JSON.
 
-        sessionStorage.setItem("hhUserData", JSON.stringify(data));
+        localStorage.setItem("hhUserData", JSON.stringify(data));
 
         //Display a successful login Message for the user.
+        //Needs some work
         $("#result-message").text(
           "You've succussfully logged in. Now go out there and make a difference!"
         );

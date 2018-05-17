@@ -41,3 +41,14 @@ INSERT INTO events
     (event_name, event_desc, event_loc, event_date, event_time, createdAt, updatedAt)
 VALUES
     ("Filing", "We are remodeling and would love some volunteers to help us organize and file!  Thank you for your help!", "Blue Cross", "2018-05-17", "12:00", '2018-05-15 00:00:00', '2018-05-15 00:00:00');
+INSERT INTO volunteer_events
+    (vol_id, event_id, createdAt, updatedAt)
+VALUES
+    (1, 1, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+    (2, 1, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+    (3, 1, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+    (1, 2, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+    (2, 2, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+    (3, 2, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+    (4, 1, '2018-05-15 00:00:00', '2018-05-15 00:00:00'),
+    (4, 2, '2018-05-15 00:00:00', '2018-05-15 00:00:00')
