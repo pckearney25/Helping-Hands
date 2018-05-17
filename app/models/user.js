@@ -24,12 +24,12 @@ module.exports = function(sequelize, DataTypes) {
     hh_role: {
       type: DataTypes.STRING
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        User.hasMany(models.Volunteer_Events);
-      }
-    }
+  // }, {
+  //   classMethods: {
+  //     associate: function(models) {
+  //       User.hasMany(models.Volunteer_Events);
+  //     }
+  //   }
   });
   return User;
 };

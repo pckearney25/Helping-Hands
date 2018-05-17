@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS helping_handsdb;
+-- DROP DATABASE IF EXISTS helping_handsdb;
 CREATE DATABASE helping_handsdb;
 USE helping_handsdb;
 
