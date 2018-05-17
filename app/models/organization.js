@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING
     },
-    phone_number: {
+    phone_num: {
       type: DataTypes.STRING
     }
   });

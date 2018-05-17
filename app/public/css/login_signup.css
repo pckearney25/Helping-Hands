@@ -25,7 +25,8 @@ html {
 }
 
 #login-h1,
-h2 {
+h2,
+.modal-title {
   font-family: "Dancing Script", cursive;
   color: #2d3436;
 }
@@ -48,4 +49,8 @@ h2 {
   background-color: #fdcb6e;
   color: #2d3436;
   border-color: #fdcb6e;
+}
+
+.modal-content {
+  background-color: #fd79a8;
 }

@@ -1,6 +1,7 @@
 $(document).ready(function() {
   /* global moment */
-
+  var hhOrgData = JSON.parse(sessionStorage.hhUserData);
+  console.log(hhOrgData);
   // eventContainer holds all of our events
   var eventContainer = $(".event-container");
   var eventCategorySelect = $("#category");
@@ -23,7 +24,6 @@ $(document).ready(function() {
     getEvents();
   }
 
-
   // This function grabs eventsfrom the database and updates the view
   function getEvents(organization) {
     eventId = organization || "";
@@ -35,8 +35,7 @@ $(document).ready(function() {
       events = data;
       if (!events || !events.length) {
         displayEmpty(organization);
-      }
-      else {
+      } else {
         initializeRows();
       }
     });
@@ -47,10 +46,9 @@ $(document).ready(function() {
     $.ajax({
       method: "DELETE",
       url: "/api/events/" + id
-    })
-      .then(function() {
-        getEvents(eventCategorySelect.val());
-      });
+    }).then(function() {
+      getEvents(eventCategorySelect.val());
+    });
   }
 
   // InitializeRows handles appending all of our constructed events HTML inside eventContainer
@@ -84,8 +82,7 @@ $(document).ready(function() {
     newEventOrganization.css({
       float: "right",
       color: "blue",
-      "margin-top":
-      "-10px"
+      "margin-top": "-10px"
     });
     var newEventCardBody = $("<div>");
     newEventCardBody.addClass("card-body");
@@ -133,9 +130,13 @@ $(document).ready(function() {
     eventContainer.empty();
     var messageH2 = $("<h2>");
     messageH2.css({ "text-align": "center", "margin-top": "50px" });
-    messageH2.html("No events yet" + partial + ", navigate <a href='/cms" + query +
-    "'>here</a> in order to get started.");
+    messageH2.html(
+      "No events yet" +
+        partial +
+        ", navigate <a href='/cms" +
+        query +
+        "'>here</a> in order to get started."
+    );
     eventContainer.append(messageH2);
   }
-
 });

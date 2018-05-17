@@ -13,20 +13,33 @@ module.exports = function(app) {
 
   app.post("/api/login", function(req, res) {
     console.log(req.body);
-    db.User.findAll({
+    db.User.findOne({
       where: req.body
     }).then(function(dbUser) {
-      console.log(dbUser);
-      res.json(dbUser);
-    });
-  });
+      if (!dbUser) {
+        console.log("null response");
+        return;
+      }
 
-  
-  app.get("/login/volunteer", function(req, res) {
-    console.log(req);
-    User.findOne({
-      where: {
-        username: req.body.username
+      if (dbUser.hh_role === "organization") {
+        db.Organization.findOne({
+          where: {
+            email: dbUser.email
+          }
+        }).then(function(dbOrganization) {
+          console.log(dbOrganization);
+          res.json(dbOrganization);
+          return;
+        });
+      } else {
+        db.Volunteer.findOne({
+          where: {
+            email: dbUser.email
+          }
+        }).then(function(dbVolunteer) {
+          console.log(dbVolunteer);
+          res.json(dbVolunteer);
+        });
       }
     });
   });
