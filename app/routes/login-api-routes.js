@@ -13,49 +13,33 @@ module.exports = function(app) {
 
   app.post("/api/login", function(req, res) {
     console.log(req.body);
-    db.User.findAll({
+    db.User.findOne({
       where: req.body
     }).then(function(dbUser) {
-      console.log(dbUser);
-      res.json(dbUser);
-    });
-  });
+      if (!dbUser) {
+        console.log("null response");
+        return;
+      }
 
-  //THESE WILL HAVE TO BE WRITTEN FOR THE FUNCTIONS REQUIRED OF YOUR SPECIFIC PAGES.
-  //NOTE: SOME OF THESE WILL HAVE TO BE CALLED AS SOON AS YOUR PAGE LOADS.
-  //As such, you might want to bracket your page.js files in a document ready function.
-  // Get all books
-  //app.get("/api/all", function(req, res) {
-  //Book.findAll({}).then(function(results) {
-  //res.json(results);
-  //});
-  //});
-  // Add a book
-  //app.post("/api/new", function(req, res) {
-  //console.log("Book Data:");
-  //console.log(req.body);
-  //Book.create({
-  //title: req.body.title,
-  //author: req.body.author,
-  //genre: req.body.genre,
-  //pages: req.body.pages
-  //});
-  //});
-  // Delete a book
-  //app.post("/api/delete", function(req, res) {
-  //console.log("Book Data:");
-  //console.log(req.body);
-  //Book.destroy({
-  //where: {
-  //id: req.body.id
-  //}
-  //});
-  //});
-  app.post("/login/volunteer", function(req, res){
-    console.log(req);
-    User.findOne({
-      where: {
-        username: req.body.username
+      if (dbUser.hh_role === "organization") {
+        db.Organization.findOne({
+          where: {
+            email: dbUser.email
+          }
+        }).then(function(dbOrganization) {
+          console.log(dbOrganization);
+          res.json(dbOrganization);
+          return;
+        });
+      } else {
+        db.Volunteer.findOne({
+          where: {
+            email: dbUser.email
+          }
+        }).then(function(dbVolunteer) {
+          console.log(dbVolunteer);
+          res.json(dbVolunteer);
+        });
       }
     });
   });

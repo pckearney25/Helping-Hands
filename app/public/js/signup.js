@@ -4,7 +4,7 @@
 $("#volSignup").on("click", function (event) {
             event.preventDefault();
 
-           //alert('hey!')
+          
 
                 // make a newUser obj
                 var newUser = {
@@ -13,7 +13,7 @@ $("#volSignup").on("click", function (event) {
                     // name from name input
                     lastName: $("#lastName").val().trim(),
                     // orgEmail from orgEmail input
-                    volorgEmail: $("#volEmail").val().trim(),
+                    volEmail: $("#volEmail").val().trim(),
                     // password from password input
                     password: $("#password").val().trim(),
                     // phone number from phone number input
@@ -25,19 +25,19 @@ $("#volSignup").on("click", function (event) {
                
 
                 // send an AJAX POST-request with jQuery
-                $.post("/api/new", newUser)
+                $.post("/api/newUser", newUser)
                     // on success, run this callback
                     .then(function (data) {
                         // log the data we found
                         console.log(data);
-                        // tell the user thanks!
-                        alert("Thank you for signing up!");
+                       
+                        window.location.href = data.redirect
                     });
 
                 // empty each input box by replacing the value with an empty string
                 $("#firstName").val(""); 
                 $("#lastName").val("");
-                $("#volorgEmail").val("");
+                $("#volEmail").val("");
                 $("#password").val("");
                 $("#phoneNum").val("");
                 
@@ -49,7 +49,7 @@ $("#volSignup").on("click", function (event) {
             $("#orgSignup").on("click", function (event) {
                 event.preventDefault();
     
-               alert('hey!')
+              
              // make a newOrg obj
              var newOrg = {
                 // name from name input
@@ -59,7 +59,8 @@ $("#volSignup").on("click", function (event) {
                 // password from password input
                 password1: $("#password1").val().trim(),
                 // phone number from phone number input
-                phoneNum1: $("#phoneNum1").val().trim()
+                phoneNum1: $("#phoneNum1").val().trim(),
+                // hh role
             };
 
               // send an AJAX POST-request with jQuery
@@ -68,8 +69,7 @@ $("#volSignup").on("click", function (event) {
               .then(function (data) {
                   // log the data we found
                   console.log(data);
-                  // tell the user thanks!
-                  alert("Thank you for signing up!");
+                 
                 });
                   $("#orgName").val("");
                   $("#orgEmail").val("");

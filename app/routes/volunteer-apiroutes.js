@@ -10,10 +10,10 @@
 // var VolunteerEvents = require("../models/vol_evnt.js");
 var db = require("../models");
 var path = require("path");
+var Sequelize = require("sequelize");
 
-
-// const Op = Sequelize.Op;
-var sequelize = db.helping_handsdb;
+const Op = Sequelize.Op;
+// var sequelize = db.helping_handsdb;
 
 // Routes
 // =============================================================
@@ -39,23 +39,43 @@ module.exports = function(app) {
       });
   });
   //the where is hardcoded need to change that to be dynamic for the user that is currently loged 
-  
+  app.get("/api/volevnts", function(req, res) {
+    db.Volunteer_Events.findAll({
+      attributes: ["vol_id"],
+      where: {
+        vol_id: 2
+      }
+    }).then(function(dbVolEve) {
+      console.log(dbVolEve);
+      db.Events.findAll({
+        where: {
+          [Op.or]: [{ id: 7 }, { id: 1 }, { id: 4 }, { id: 3 }, { id: 2 }]
+        }
+        
+
+      }).then(function(dbEvents) {
+        // console.log("op.or: ", dbVolEve);
+        // console.log(dbEvents);
+        res.json(dbEvents);
+      });
+    });
+  });
 
 
-  app.get("/api/posts/:user", function (req, res) {
+//   app.get("/api/posts/:user", function (req, res) {
 
-    // console.log("vol_events get: ", res);
-  // console.log(res)
+//     // console.log("vol_events get: ", res);
+//   // console.log(res)
 
-  db.Volunteer_Events.findAll({
-    where: {
-      vol_id: req.params.user
-    }
-  }).then(function(dbevents){
-    console.log(dbevents)
-    res.json(dbevents);
-  })
-});
+//   db.Volunteer_Events.findAll({
+//     where: {
+//       vol_id: req.params.user_id
+//     }
+//   }).then(function(dbevents){
+//     console.log(dbevents)
+//     res.json(dbevents);
+//   })
+// });
   
    
   //tutor function

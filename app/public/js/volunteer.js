@@ -31,7 +31,7 @@ $(document).ready(function () {
     });
 
   $.ajax({
-      url: "/api/posts/:user",
+      url: "/api/volevnts",
       method: "GET"
 
     })
