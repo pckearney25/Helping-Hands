@@ -15,8 +15,9 @@ module.exports = function (app) {
         console.log(req.body);      
 
         var newUser = {
-            username: req.body.username,
-            password: req.body.password
+            email: req.body.username,
+            password: req.body.password,
+            hh_role:  req.body.hh_role
         }
 
         db.User.create(newUser).then(function(newUser) {
