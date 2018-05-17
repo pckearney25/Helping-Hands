@@ -27,10 +27,18 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/html/signup.html"));
   });
 
+  // signup route loads the signup.html page, where users can signup as volunteers or organizations.
   app.get("/volunteer", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/html/volunteer.html"));
   });
+
+  // signup route loads the signup.html page, where users can signup as volunteers or organizations.
+  app.get("/organization", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/html/organization.html"));
+  });
+
+  //The catch-all default to the welcome page
+  //app.use(function(req, res) {
+  //res.sendFile(path.join(__dirname, "../public/html/welcome.html"));
+  // });
 };
-
-//add controllers and views
-

@@ -1,4 +1,3 @@
-
 module.exports = function(sequelize, DataTypes) {
   var Volunteer = sequelize.define("Volunteer", {
     first_name: {
