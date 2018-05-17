@@ -25,7 +25,7 @@ $("#volSignup").on("click", function (event) {
                
 
                 // send an AJAX POST-request with jQuery
-                $.post("/api/new", newUser)
+                $.post("/api/newUser", newUser)
                     // on success, run this callback
                     .then(function (data) {
                         // log the data we found
