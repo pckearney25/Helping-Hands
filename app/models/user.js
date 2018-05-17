@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     hh_role: {
       type: DataTypes.STRING
-    }
+    },
   });
   return User;
 };
