@@ -1,47 +1,105 @@
-button.submit {
-  float: right;
+body,
+html {
+  height: 100%;
+
+  
 }
 
-form#cms {
-  margin-top: 50px;
+
+/* body {
+  background-image: url("./images/volunteers-2654004.jpg");
+  height: 100%;
+  background-attachment: scroll;
+  /* Center and scale the image nicely */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+/* } */ 
+
+.parallax { 
+  /* The image used */
+  background-image: url("./images/volunteers-2654004.jpg");
+
+  /* Set a specific height */
+  height: 25000px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-#cms textarea {
-  resize: none;
+/* .bg-img {
+  The image used 
+
+} */
+
+.container {
+  width: 960px;
+  
 }
 
-.card-header button.delete,
-button.edit {
-  float: right;
-  margin: 5px;
+.display-4   {
+  font-family: "Dancing Script", cursive;
+  color: #2d3436;
 }
 
-.author-container {
-  margin-top: 50px;
+#userNameWelcome,
+h1,
+h2
+ {
+
+  font-family: "Dancing Script", cursive;
+  color: #2d3436;
+}
+#jumbotron {
+  background-color: #81ecec;
 }
 
-.author-list {
-  margin-top: 25px;
+
+#welcome-header {
+  font-size: 56px;
 }
 
-.blog-container {
-  margin-top: 30px;
+/* primary button */
+.btn-submit {
+  background-color: #ffeaa7;
+  border-color: #ffeaa7;
+  color: #2d3436;
+  font-family: 'Alegreya', serif;
 }
 
-.blog {
-  margin-top: 30px;
+.eventNameCss {
+  font-family: 'Alegreya', serif;
+  font-size: 35px;
+  font-weight: 300;
 }
 
-.hidden {
-  display: none;
+#events_div {
+  background-color: #81ecec;
 }
 
-#author-name {
-  width: 100%;
-  height: 35px;
-  margin-top: 5px;
+.eventDescCss{
+  font-family: 'Alegreya', serif;
+  font-size: 25px;
+  font-weight: 150;
 }
 
-.top-30 {
-  margin-top: 30px;
+#user_att_div {
+  background-color: #81ecec;
+};
+
+.dateTime {
+  font-weight: 175;
+}
+
+#headingInfoBox {
+  background-color: #ff8b8b;
+  border-color: #ff8b8b;
+  color: #2d3436; 
+  font-family: 'Alegreya', serif;
+  font-size: 25px;
+  
+
 }
