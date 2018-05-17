@@ -12,8 +12,6 @@ $(document).ready(function() {
       hh_role: ""
     };
 
-    var userData = {};
-
     newLogin.hh_role = $(this).val();
 
     if (newLogin.hh_role === "volunteer") {
@@ -56,6 +54,7 @@ $(document).ready(function() {
         sessionStorage.setItem("hhUserData", JSON.stringify(data));
 
         //Display a successful login Message for the user.
+        //Needs some work
         $("#result-message").text(
           "You've succussfully logged in. Now go out there and make a difference!"
         );

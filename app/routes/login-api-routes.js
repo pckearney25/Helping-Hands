@@ -5,7 +5,7 @@
 // Dependencies
 // =============================================================
 var db = require("../models");
-
+var Sequelize = require("sequelize");
 // Routes
 // =============================================================
 module.exports = function(app) {
