@@ -12,19 +12,23 @@ $(document).ready(function () {
       for (var i = 0; i < results.length; i++) {
         var event_name = $("<p>").text(results[i].event_name);
         event_name.addClass("mb-1");
+        event_name.addClass("eventNameCss");
         var event_desc = $("<p>").text(results[i].event_desc);
         event_desc.addClass("mb-1");
+        event_desc.addClass("eventDescCss");
         var event_date = $("<p>").text(results[i].event_date);
         event_date.addClass("mb-1");
+        event_date.addClass("dateTime");
         var event_time = $("<p>").text(results[i].event_time);
         event_time.addClass("mb-1");
+        event_time.addClass("dateTime");
         var submit_btn = $("<button>").text("Mark as going");
         submit_btn.addClass("btn btn-submit");
 
         $("#events_div").append(event_name);
         $("#events_div").append(event_desc);
-        $("#events_div").append(event_date);
-        $("#events_div").append(event_time);
+        $("#events_div").append("The Day: ", event_date);
+        $("#events_div").append("The Time: ", event_time);
         $("#events_div").append(submit_btn);
 
       }
@@ -41,20 +45,26 @@ $(document).ready(function () {
       for (var i = 0; i < results.length; i++) {
         var event_name = $("<p>").text(results[i].event_name);
         event_name.addClass("mb-1");
+        event_name.addClass("eventNameCss");
         var event_desc = $("<p>").text(results[i].event_desc);
         event_desc.addClass("mb-1");
+        event_desc.addClass("eventDescCss");
         var event_date = $("<p>").text(results[i].event_date);
         event_date.addClass("mb-1");
+        event_date.addClass("dateTime");
         var event_time = $("<p>").text(results[i].event_time);
         event_time.addClass("mb-1");
+        event_time.addClass("dateTime");
         var un_submit_btn = $("<button>").text("Mark as not going");
         un_submit_btn.addClass("btn btn-submit");
+        
 
         $("#user_att_div").append(event_name);
         $("#user_att_div").append(event_desc);
-        $("#user_att_div").append(event_date);
-        $("#user_att_div").append(event_time);
+        $("#user_att_div").append("The Day: ", event_date);
+        $("#user_att_div").append("The Time: ", event_time);
         $("#user_att_div").append(un_submit_btn);
+        
       }
     })
 

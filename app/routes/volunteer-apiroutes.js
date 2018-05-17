@@ -41,7 +41,7 @@ module.exports = function(app) {
   //the where is hardcoded need to change that to be dynamic for the user that is currently loged 
   app.get("/api/volevnts", function(req, res) {
     db.Volunteer_Events.findAll({
-      attributes: ["vol_id"],
+      attributes: ["event_id"],
       where: {
         vol_id: 2
       }
@@ -49,7 +49,7 @@ module.exports = function(app) {
       console.log(dbVolEve);
       db.Events.findAll({
         where: {
-          [Op.or]: [{ id: 7 }, { id: 1 }, { id: 4 }, { id: 3 }, { id: 2 }]
+          [Op.or]: [{ id: 3 }, { id: 1 }]
         }
         
 
