@@ -3,7 +3,7 @@ CREATE DATABASE helping_handsDB;
 USE helping_handsDB;
 CREATE TABLE volunteers
 (
-  id INT NOT NULL
+  vol_id INT NOT NULL
   AUTO_INCREMENT,
   first_name VARCHAR
   (45) NOT NULL,
@@ -16,11 +16,11 @@ CREATE TABLE volunteers
   createdAt DATETIME NOT NULL,
   updatedAt DATETIME NOT NULL,
   PRIMARY KEY
-  (id)
+  (vol_id)
 );
   CREATE TABLE organizations
   (
-    id INT NOT NULL
+    org_id INT NOT NULL
     AUTO_INCREMENT,
   organizer VARCHAR
     (255) NOT NULL,
@@ -31,11 +31,11 @@ CREATE TABLE volunteers
   createdAt DATETIME NOT NULL,
   updatedAt DATETIME NOT NULL,
   PRIMARY KEY
-    (id)
+    (org_id)
 );
     CREATE TABLE events
     (
-      id INT NOT NULL
+      event_id INT NOT NULL
       AUTO_INCREMENT,
   event_name VARCHAR
       (255) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE volunteers
   createdAt DATETIME NOT NULL,
   updatedAt DATETIME NOT NULL,
   PRIMARY KEY
-      (id)
+      (event_id)
 );
       CREATE TABLE volunteer_events
       (
